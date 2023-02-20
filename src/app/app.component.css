@@ -1,0 +1,17 @@
+.isActive {
+  color: rgb(0, 0, 0);
+  cursor: default;
+}
+h1 {
+  color: #3675cd;
+  cursor: pointer;
+  display: inline-block;
+}
+
+h1:after {
+  content: ">";
+}
+
+.isActive:after {
+  content: "";
+}

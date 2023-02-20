@@ -1,0 +1,190 @@
+<div class="container">
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <div class="item-container">
+      <div class="title">
+        <h2>Dettagli gruppo di firma</h2>
+      </div>
+      <div class="form1">
+        <div style="position: relative">
+          <label for="in1">Nome gruppo</label>
+          <input
+            id="in1"
+            type="text"
+            style="width: 400px"
+            formControlName="groupName"
+          />
+        </div>
+        <div style="position: relative">
+          <label for="in2">Soglia minima servizi</label>
+          <input
+            id="in2"
+            type="text"
+            style="width: 200px"
+            formControlName="minValue"
+            #min
+          />
+        </div>
+        <div style="position: relative">
+          <label for="in3">Soglia maxima servizi</label>
+          <input
+            id="in3"
+            type="text"
+            style="width: 200px"
+            formControlName="maxValue"
+            #max
+          />
+        </div>
+        <div class="users" *ngIf="usersT">
+          <ng-container *ngFor="let user of usersT?.slice(0, 4); index as i">
+            <div class="avatar">
+              <h3>{{ user["userInitials"] }}</h3>
+            </div>
+          </ng-container>
+          <div class="avatar" *ngIf="usersT && usersT.length > 4">
+            <h3>+{{ usersT.length - 4 }}</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- body -->
+    <div class="modify">
+      <!-- first container -->
+      <div class="item-container modify-item">
+        <div class="title">
+          <h2>Abilita servizi per gruppo di Firma</h2>
+          <p>Seleziona i servizi e imposta la relativa soglia</p>
+        </div>
+        <div class="scroll">
+          <table style="width: 100%" formArrayName="functions">
+            <tr>
+              <th>Servizio</th>
+              <th>Soglia minima</th>
+              <th>Soglia massima</th>
+            </tr>
+            <ng-container
+              *ngFor="let function of getFunctions().controls; let i = index"
+            >
+              <tr [formGroupName]="i">
+                <td>
+                  <div
+                    class="toggle"
+                    appToggle
+                    [disabledControl]="dataService.disable"
+                    [Selected]="checkFunction(function.value.functionCode)"
+                    (toggleChange)="handleToggle($event, function)"
+                  >
+                    <div class="toggle-point"></div>
+                  </div>
+                  <h4>{{ function.value.title }}</h4>
+                </td>
+                <td>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="orange"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    *ngIf="
+                      function.disabled &&
+                      function.value.minValue !=
+                        myForm.controls.minValue.value &&
+                      function.value.minValue != ''
+                    "
+                  >
+                    <path
+                      d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"
+                    />
+                    <path
+                      d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z"
+                    />
+                  </svg>
+                  <input
+                    type="text"
+                    style="width: 80%; margin: 0"
+                    appWarning
+                    [Val]="myForm.controls.minValue.value"
+                    [Disabled]="function.disabled"
+                    formControlName="minValue"
+                  />
+                </td>
+                <td>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="orange"
+                    viewBox="0 0 16 16"
+                    style="color: orange"
+                    *ngIf="
+                      function.disabled &&
+                      function.value.maxValue !=
+                        myForm.controls.maxValue.value &&
+                      function.value.maxValue != ''
+                    "
+                  >
+                    <path
+                      d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"
+                    />
+                    <path
+                      d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z"
+                    />
+                  </svg>
+                  <input
+                    type="text"
+                    style="width: 80%; margin: 0"
+                    appWarning
+                    [Val]="myForm.controls.maxValue.value"
+                    [Disabled]="function.disabled"
+                    formControlName="maxValue"
+                  />
+                </td>
+              </tr>
+            </ng-container>
+          </table>
+        </div>
+      </div>
+      <!-- second container -->
+      <div class="item-container modify-item">
+        <div class="title">
+          <h2>Seleziona utenti da aggiungere al gruppo</h2>
+          <p>Sono disponibili solo gli utenti dispositivi</p>
+        </div>
+        <div class="scroll">
+          <input
+            type="text"
+            style="width: 40%; margin-top: 0"
+            placeholder="Filtra..."
+            [disabled]="dataService.disable"
+            (keyup)="filterUsers(v.value)"
+            #v
+          />
+          <ul>
+            <li *ngFor="let item of users; let i = index">
+              <input
+                [checked]="checkUser(item)"
+                type="checkbox"
+                style="width: 20px; height: 20px; margin-top: 25px"
+                (click)="handleUser(item)"
+                [disabled]="dataService.disable"
+              />
+              <div class="avatar" style="margin-top: 18px">
+                <h3 style="margin: 4px 0 0 0">
+                  {{ item.userInitials }}
+                </h3>
+              </div>
+              <h4 style="color: dimgray; font-size: 18px">
+                {{ item.fullName }}
+              </h4>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="button-container">
+      <button class="btn" type="submit" [disabled]="!myForm.valid" #e>
+        {{ dataService.disable ? "Modifica" : "Salva" }}
+      </button>
+      <button class="btn-2" (click)="handleIndietro()">Indietro</button>
+    </div>
+  </form>
+</div>

@@ -1,1 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+  background-color: #f8f8f8;
+}
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+.list-container {
+  padding: 0 2vw;
+  margin-bottom: 80px;
+}
+h1 {
+  margin-left: 15px;
+}
+/* #nav1 {
+  color: #3675cd;
+} */
