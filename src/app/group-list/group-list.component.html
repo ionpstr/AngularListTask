@@ -10,9 +10,10 @@
   <li *ngFor="let item of items">
     <app-group-item
       [item]="item"
-      [showMenu]="showMenu"
+      [showMenu]="itemOut == item ? showMenu : false"
       (click)="navigate(item['id'])"
       (delete)="deleteRow($event)"
+      (menuClick)="handleClick($event)"
     ></app-group-item>
   </li>
 </ul>

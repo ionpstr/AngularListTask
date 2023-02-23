@@ -11,11 +11,13 @@ import { Item } from '../../types/item';
 export class GroupItemComponent {
   @Input() item!: Item;
   @Input() showMenu: boolean = false;
+  @Output() menuClick = new EventEmitter();
   @Output('delete') delete: EventEmitter<Item> = new EventEmitter();
   handleMenu(event: Event) {
-    this.showMenu = !this.showMenu;
+    this.menuClick.emit(this.item);
     event.stopPropagation();
   }
+
   handleModifica() {
     this.dataService.disable = false;
 

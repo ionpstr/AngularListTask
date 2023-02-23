@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class GroupListComponent {
   items: Item[];
+  itemOut!: Item;
   showMenu: boolean = false;
   filterRow(val: string) {
     val = val.trim();
@@ -16,6 +17,13 @@ export class GroupListComponent {
     if (val != '') {
       this.items = this.dataService.filter(val, this.items) as Item[];
     }
+  }
+  handleClick(event: Item) {
+    if (this.itemOut !== event) {
+      this.showMenu = false;
+    }
+    this.itemOut = event;
+    this.showMenu = !this.showMenu;
   }
   navigate(id: number) {
     this.dataService.disable = true;
