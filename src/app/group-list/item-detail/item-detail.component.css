@@ -10,15 +10,29 @@
 .modify {
   display: flex;
   gap: 20px;
+
+  justify-content: space-evenly;
 }
 .container {
   display: flex;
   flex-direction: column;
-  width: 100%;
   gap: 20px;
 }
 .modify-item {
   width: 50%;
+}
+@media only screen and (max-width: 1200px) {
+  .modify-item {
+    width: 100%;
+  }
+  .modify {
+    flex-wrap: wrap;
+  }
+}
+@media only screen and (max-width: 700px) {
+  .form1 input {
+    width: 75vw;
+  }
 }
 .title {
   padding: 15px 15px 0 15px;
@@ -47,12 +61,13 @@ p {
   display: flex;
   gap: 10px;
   padding: 0 15px 15px 15px;
+  flex-wrap: wrap;
 }
 input {
   font-size: 18px;
+  width: 200px;
   outline: none;
   padding-left: 10px;
-  width: 300px;
   height: 40px;
   margin-top: 20px;
   border: none;
@@ -140,10 +155,9 @@ td input:disabled {
   border-bottom-color: orange;
 }
 .users {
-  width: 50%;
   text-align: right;
-
   margin-top: 20px;
+  margin-left: auto;
 }
 .users h3 {
   margin: 0;

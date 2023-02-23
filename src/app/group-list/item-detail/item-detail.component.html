@@ -7,32 +7,15 @@
       <div class="form1">
         <div style="position: relative">
           <label for="in1">Nome gruppo</label>
-          <input
-            id="in1"
-            type="text"
-            style="width: 400px"
-            formControlName="groupName"
-          />
+          <input id="in1" type="text" formControlName="groupName" />
         </div>
         <div style="position: relative">
           <label for="in2">Soglia minima servizi</label>
-          <input
-            id="in2"
-            type="text"
-            style="width: 200px"
-            formControlName="minValue"
-            #min
-          />
+          <input id="in2" type="text" formControlName="minValue" #min />
         </div>
         <div style="position: relative">
           <label for="in3">Soglia maxima servizi</label>
-          <input
-            id="in3"
-            type="text"
-            style="width: 200px"
-            formControlName="maxValue"
-            #max
-          />
+          <input id="in3" type="text" formControlName="maxValue" #max />
         </div>
         <div class="users" *ngIf="usersT">
           <ng-container *ngFor="let user of usersT?.slice(0, 4); index as i">

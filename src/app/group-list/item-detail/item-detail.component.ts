@@ -121,70 +121,7 @@ export class ItemDetailComponent {
   handleIndietro() {
     this.router.navigate(['/']);
   }
-  handleSalva(event: HTMLButtonElement) {
-    let flag = 0;
-    // this.dataService.disable = false;
-    // this.myForm.controls.users.enable();
-    // this.myForm.controls.functions.controls.forEach((item) => {
-    //   let code = item.value;
-    //   if (this.checkFunction(code as string)) {
-    //     item.enable();
-    //   }
-    // });
-    // this.myForm.controls.groupName.enable();
-    // this.myForm.controls.minValue.enable();
-    // this.myForm.controls.maxValue.enable();
-    // console.log(this.myForm);
-    if (!this.dataService.disable) {
-      let flag1 = 0;
-      this.myForm.controls.functions.value.forEach((f) => {
-        let i = f as Function;
-        if (
-          i.minValue != this.myForm.value.minValue ||
-          i.maxValue != this.myForm.value.maxValue
-        ) {
-          flag1 = 1;
-        }
-      });
-      if (flag1) {
-        this.myForm.patchValue({
-          warning:
-            'In atessa che il gruppo di firma venga approvato dai master',
-        });
-      } else {
-        this.myForm.patchValue({
-          warning: '',
-        });
-      }
 
-      for (let i = 0; i < this.dataService.data.length; ++i) {
-        if (this.dataService.data[i].id == this.myForm.value.id) {
-          this.dataService.data[i] = this.myForm.value as Item;
-          flag = 1;
-          break;
-        }
-      }
-      if (!flag) {
-        this.dataService.data.push(this.myForm.value as Item);
-        flag = 0;
-      }
-    } else {
-      this.dataService.disable = false;
-      this.myForm.controls.groupName.enable();
-      this.myForm.controls.minValue.enable();
-      this.myForm.controls.maxValue.enable();
-      this.myForm.controls.users.enable();
-      if (!this.dataService.disable) {
-        this.myForm.controls.functions.controls.forEach((item) => {
-          let code = item as FormControl;
-          if (this.checkFunction(code.value.functionCode as string)) {
-            item.enable();
-          }
-        });
-      }
-      event.innerHTML = 'Salva';
-    }
-  }
   onSubmit() {
     let flag = 0;
 
@@ -223,6 +160,7 @@ export class ItemDetailComponent {
 
         flag = 0;
       }
+      this.router.navigate(['/']);
     } else {
       this.dataService.disable = false;
       this.myForm.controls.groupName.enable();
